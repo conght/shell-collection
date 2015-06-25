@@ -30,7 +30,6 @@ cat $FILE_PATH | awk -F '&luw' 'BEGIN {print "[BEGIN PARSE..]" }
 	split($7, temp_arr, "&luctr:");
 	split(temp_arr[2], temp_arr2, "&lumidcpm:");
 	split(temp_arr2[1], luctrs, "#");
-	len=length(words);
 	times[1]=0;
 	times[2]=0;
 	times[3]=0;
@@ -40,7 +39,7 @@ cat $FILE_PATH | awk -F '&luw' 'BEGIN {print "[BEGIN PARSE..]" }
 	times[7]=0;
 	times[8]=0;
 	times[9]=0;
-	for (i=1; i<len+1; i++) {
+	for (i in words) {
 		channel=substr(channelstr, i, 1);
 		times[channel]++;
 		print "Line - "NR"  word:"words[i]"  channel:"channel"  luctr:"luctrs[i];
