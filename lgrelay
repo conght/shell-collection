@@ -1,0 +1,55 @@
+#!/usr/bin/expect -f
+#-------------------------------------------------- about us
+set loginuser "conghanting" 
+set loginpass {XXXXXXXX}
+set verification_code [lindex $argv 0]
+
+set ipaddr XXXXXXX 
+set timeout 300
+set cmd_prompt "]#|~]?"
+
+
+#-------------------------------------------------- login by ssh 
+spawn ssh $loginuser@$ipaddr
+set timeout 300
+expect {
+    -re "Verification code:" {
+        send "${verification_code}\r"
+    }
+    -re "Are you sure you want to continue connecting (yes/no)?" {
+        send "yes\r"
+    } -re "assword:" {
+        send "${loginpass}\r"
+    } -re "Permission denied, please try again." {
+        exit
+    } -re "Connection refused" {
+        exit
+    } timeout {
+        exit
+    } eof {
+        exit
+    }
+}
+
+
+expect {
+    -re "assword:" {
+        send "$loginpass\r"
+    }
+    -re $cmd_prompt {
+        send "\r"
+    }
+}
+
+
+#---------------------------------------------------- now,we do some commands
+#exec sleep 1
+#expect {
+#    -re $cmd_prompt {
+#        send "sudo su -\r"
+#        send "touch /opt/2222222222222.c\r"
+#    }
+#}
+
+
+interact
