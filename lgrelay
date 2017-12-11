@@ -1,6 +1,6 @@
 #!/usr/bin/expect -f
 #-------------------------------------------------- about us
-set loginuser "conghanting" 
+set loginuser "" 
 set loginpass {XXXXXXXX}
 set verification_code [lindex $argv 0]
 
